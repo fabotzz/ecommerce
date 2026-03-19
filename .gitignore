@@ -1,0 +1,15 @@
+# Dependências
+node_modules/
+package-lock.json
+
+# Ambiente
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
