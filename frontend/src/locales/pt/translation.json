@@ -1,0 +1,54 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro ao carregar dados",
+    "retry": "Tentar novamente",
+    "close": "Fechar"
+  },
+  "navigation": {
+    "home": "Início",
+    "products": "Produtos",
+    "cart": "Carrinho",
+    "checkout": "Finalizar Compra",
+    "login": "Entrar",
+    "register": "Cadastrar",
+    "logout": "Sair",
+    "profile": "Meu Perfil"
+  },
+  "product": {
+    "add_to_cart": "Adicionar ao Carrinho",
+    "remove_from_cart": "Remover",
+    "price": "Preço",
+    "category": "Categoria",
+    "description": "Descrição",
+    "in_stock": "Em estoque",
+    "out_of_stock": "Esgotado",
+    "details": "Ver detalhes"
+  },
+  "cart": {
+    "title": "Meu Carrinho",
+    "empty": "Seu carrinho está vazio",
+    "total": "Total",
+    "checkout": "Finalizar Compra",
+    "continue_shopping": "Continuar Comprando"
+  },
+  "auth": {
+    "login_title": "Entrar na sua conta",
+    "register_title": "Criar nova conta",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirm_password": "Confirmar Senha",
+    "name": "Nome completo",
+    "forgot_password": "Esqueceu a senha?",
+    "no_account": "Não tem uma conta?",
+    "has_account": "Já tem uma conta?",
+    "register_here": "Cadastre-se",
+    "login_here": "Faça login"
+  },
+  "footer": {
+    "copyright": "Todos os direitos reservados",
+    "about": "Sobre nós",
+    "contact": "Contato",
+    "terms": "Termos de uso"
+  }
+}

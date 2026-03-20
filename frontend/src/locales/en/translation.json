@@ -1,0 +1,54 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error loading data",
+    "retry": "Try again",
+    "close": "Close"
+  },
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "My Profile"
+  },
+  "product": {
+    "add_to_cart": "Add to Cart",
+    "remove_from_cart": "Remove",
+    "price": "Price",
+    "category": "Category",
+    "description": "Description",
+    "in_stock": "In Stock",
+    "out_of_stock": "Out of Stock",
+    "details": "View Details"
+  },
+  "cart": {
+    "title": "My Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continue_shopping": "Continue Shopping"
+  },
+  "auth": {
+    "login_title": "Sign in to your account",
+    "register_title": "Create a new account",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "name": "Full name",
+    "forgot_password": "Forgot password?",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?",
+    "register_here": "Sign up",
+    "login_here": "Sign in"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "about": "About us",
+    "contact": "Contact",
+    "terms": "Terms of use"
+  }
+}

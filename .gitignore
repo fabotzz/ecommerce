@@ -1,15 +1,13 @@
-# Dependências
 node_modules/
-package-lock.json
-
-# Ambiente
 .env
-.env.local
-
-# Logs
-logs/
+package-lock.json
 *.log
+EOF
 
-# Sistema
-.DS_Store
-Thumbs.db
+# Frontend
+cd ../frontend
+cat > .gitignore << 'EOF'
+node_modules/
+.env
+build/
+*.log
