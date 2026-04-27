@@ -1,32 +1,34 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
 
-const protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   let token;
-
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  if (req.headers.authorization?.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
   }
-
-  if (!token) {
-    return res.status(401).json({ error: 'Not authorized - no token' });
-  }
+  if (!token) return res.status(401).json({ error: 'Not authorized - no token' });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select('-password');
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) return res.status(401).json({ error: 'User not found' });
+    if (user.role !== 'super_admin') {
+      if (user.tenantId?.toString() !== req.tenantId?.toString()) {
+        return res.status(403).json({ error: 'Access denied - wrong tenant' });
+      }
+    }
+    req.user = user;
     next();
   } catch (error) {
     return res.status(401).json({ error: 'Not authorized - invalid token' });
   }
 };
 
-const admin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
+export const authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({ error: `Role '${req.user.role}' is not allowed` });
+    }
     next();
-  } else {
-    res.status(403).json({ error: 'Access denied - admin only' });
-  }
+  };
 };
-
-module.exports = { protect, admin };

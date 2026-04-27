@@ -1,73 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import axios from 'axios';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { CartProvider } from './context/CartContext.js';
+import { AuthProvider } from './context/AuthContext.js';
+import { TenantProvider } from './context/TenantContext.js';
+import PrivateRoute from './components/PrivateRoute.js';
+import Store from './pages/Store.js';
+import Login from './pages/Login.js';
+import Register from './pages/Register.js';
+import Dashboard from './pages/Dashboard.js';
+import SuperAdminLogin from './pages/SuperAdminLogin.js';
+import SuperAdminDashboard from './pages/SuperAdminDashboard.js';
 
-function App() {
-  const { t, i18n } = useTranslation();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+const TenantRoutes = () => (
+  <TenantProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Routes>
+          <Route path="" element={<Store />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="dashboard" element={
+            <PrivateRoute roles={['seller', 'tenant_admin', 'super_admin']}>
+              <Dashboard />
+            </PrivateRoute>
+          } />
+        </Routes>
+      </CartProvider>
+    </AuthProvider>
+  </TenantProvider>
+);
 
-  // Função para mudar idioma
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-
-  useEffect(() => {
-    loadProducts();
-  }, []);
-
-  const loadProducts = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/products');
-      setProducts(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error loading products:', error);
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return <div className="loading">{t('common.loading')}</div>;
-  }
-
-  return (
-    <div className="App">
-      {/* Language Selector */}
-      <div className="language-selector">
-        <button onClick={() => changeLanguage('pt')} className="lang-btn">
-          🇧🇷 PT
-        </button>
-        <button onClick={() => changeLanguage('en')} className="lang-btn">
-          🇺🇸 EN
-        </button>
-      </div>
-
-      <header className="header">
-        <h1>{t('navigation.home')}</h1>
-        <p>{products.length} {t('product.in_stock').toLowerCase()}</p>
-      </header>
-      
-      <main className="products-grid">
-        {products.map(product => (
-          <div key={product._id} className="product-card">
-            <h3>{product.name}</h3>
-            <p className="description">{product.description}</p>
-            <p className="category">
-              {t('product.category')}: {product.category}
-            </p>
-            <p className="price">
-              {t('product.price')}: R$ {product.price.toFixed(2)}
-            </p>
-            <button className="btn-add">
-              {t('product.add_to_cart')}
-            </button>
-          </div>
-        ))}
-      </main>
-    </div>
-  );
-}
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/superadmin/login" element={<AuthProvider><SuperAdminLogin /></AuthProvider>} />
+      <Route path="/superadmin/dashboard" element={<AuthProvider><SuperAdminDashboard /></AuthProvider>} />
+      <Route path="/:tenantSlug/*" element={<TenantRoutes />} />
+      <Route path="/" element={<AuthProvider><SuperAdminLogin /></AuthProvider>} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App;
